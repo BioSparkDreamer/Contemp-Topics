@@ -37,14 +37,14 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-         if(Input.GetKey(KeyCode.A))
-            {
-                transform.Translate(-speed * Time.deltaTime, 0, 0);
-            }
-        if(Input.GetKey(KeyCode.D))
-            {
-                transform.Translate(speed * Time.deltaTime, 0, 0);
-            }
+        if (Input.GetKey(KeyCode.A))
+        {
+            transform.Translate(-speed * Time.deltaTime, 0, 0);
+        }
+        if (Input.GetKey(KeyCode.D))
+        {
+            transform.Translate(speed * Time.deltaTime, 0, 0);
+        }
         if (Input.GetKeyDown(interactKey))
         {
             RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.right, raycastDistance, interactableLayer);
@@ -60,67 +60,67 @@ public class PlayerController : MonoBehaviour
                 // Perform the action or scene change here
                 Debug.Log("Interacted with " + hit.collider.name);
             }
-             if (hit.collider != null && hit.collider.CompareTag("Protestor"))
-             {
-                protestorText.text = "I'm Protesting";
+            if (hit.collider != null && hit.collider.CompareTag("Protestor"))
+            {
+                // protestorText.text = "I'm Protesting";
                 protestorText.gameObject.SetActive(true);
-             }
-             else if (protestorText.gameObject.activeSelf)
+            }
+            else if (protestorText.gameObject.activeSelf)
             {
                 protestorText.gameObject.SetActive(false);
             }
             if (hit.collider != null && hit.collider.CompareTag("Cop"))
-             {
-                copText.text = "I'm a cop bro";
+            {
+                // copText.text = "I'm a cop bro";
                 copText.gameObject.SetActive(true);
-             }
-             else if (copText.gameObject.activeSelf)
+            }
+            else if (copText.gameObject.activeSelf)
             {
                 copText.gameObject.SetActive(false);
             }
-             if (hit.collider != null && hit.collider.CompareTag("Lawyer"))
-             {
-                lawyerText.text = "Better call Paul!";
+            if (hit.collider != null && hit.collider.CompareTag("Lawyer"))
+            {
+                // lawyerText.text = "Better call Paul!";
                 lawyerText.gameObject.SetActive(true);
-             }
-             else if (lawyerText.gameObject.activeSelf)
+            }
+            else if (lawyerText.gameObject.activeSelf)
             {
                 lawyerText.gameObject.SetActive(false);
             }
-             if (hit.collider != null && hit.collider.CompareTag("Employee A"))
-             {
-                employeeaText.text = "No I'm not a cupcake";
+            if (hit.collider != null && hit.collider.CompareTag("Employee A"))
+            {
+                // employeeaText.text = "No I'm not a cupcake";
                 employeeaText.gameObject.SetActive(true);
-             }
-             else if (employeeaText.gameObject.activeSelf)
+            }
+            else if (employeeaText.gameObject.activeSelf)
             {
                 employeeaText.gameObject.SetActive(false);
             }
-             if (hit.collider != null && hit.collider.CompareTag("Journalist"))
-             {
-                journalistText.text = "I've got some damming news to tell yah...";
+            if (hit.collider != null && hit.collider.CompareTag("Journalist"))
+            {
+                // journalistText.text = "I've got some damming news to tell yah...";
                 journalistText.gameObject.SetActive(true);
-             }
-             else if (journalistText.gameObject.activeSelf)
+            }
+            else if (journalistText.gameObject.activeSelf)
             {
                 journalistText.gameObject.SetActive(false);
             }
         }
-    }  
+    }
 
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.tag == "Wall")
         {
-            if(Input.GetKey(KeyCode.A))
+            if (Input.GetKey(KeyCode.A))
             {
                 transform.Translate(speed * Time.deltaTime, 0, 0);
             }
-            if(Input.GetKey(KeyCode.D))
+            if (Input.GetKey(KeyCode.D))
             {
                 transform.Translate(-speed * Time.deltaTime, 0, 0);
             }
         }
-    }    
+    }
 }
