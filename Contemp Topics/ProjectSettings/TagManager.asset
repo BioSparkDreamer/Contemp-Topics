@@ -11,6 +11,8 @@ TagManager:
   - Employee A
   - Lawyer
   - Journalist
+  - Stranger
+  - Last Door
   layers:
   - Default
   - TransparentFX

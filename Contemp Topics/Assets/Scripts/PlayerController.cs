@@ -16,18 +16,24 @@ public class PlayerController : MonoBehaviour
     private TextMeshProUGUI employeeaText;
     private TextMeshProUGUI protestorText;
     private TextMeshProUGUI journalistText;
+    private TextMeshProUGUI strangerText;
     private TextMeshProUGUI reliableText;
     public GameObject protestorYes, protestorNo;
     public GameObject copYes, copNo;
     public GameObject lawyerYes, lawyerNo;
     public GameObject employeeAYes, employeeANo;
     public GameObject journalistYes, journalistNo;
+    public GameObject strangerYes, strangerNo;
+    public int yesCount = 0; // count of "yes" responses to prompts
+    
 
     // Start is called before the first frame update
     void Start()
     {
         copText = GameObject.Find("Cop Text").GetComponent<TextMeshProUGUI>();
         copText.gameObject.SetActive(false);
+
+       
 
         lawyerText = GameObject.Find("Lawyer Text").GetComponent<TextMeshProUGUI>();
         lawyerText.gameObject.SetActive(false);
@@ -40,6 +46,9 @@ public class PlayerController : MonoBehaviour
 
         protestorText = GameObject.Find("Protestor Text").GetComponent<TextMeshProUGUI>();
         protestorText.gameObject.SetActive(false);
+
+        strangerText = GameObject.Find("Stranger Text").GetComponent<TextMeshProUGUI>();
+        strangerText.gameObject.SetActive(false);
 
         reliableText = GameObject.Find("Reliable Text").GetComponent<TextMeshProUGUI>();
         reliableText.gameObject.SetActive(false);
@@ -93,7 +102,7 @@ public class PlayerController : MonoBehaviour
                 copNo.gameObject.SetActive(true);
                 copYes.gameObject.SetActive(true);
                 reliableText.gameObject.SetActive(true);
-
+                
             }
             else if (copText.gameObject.activeSelf)
             {
@@ -139,6 +148,7 @@ public class PlayerController : MonoBehaviour
                 journalistNo.gameObject.SetActive(true);
                 journalistYes.gameObject.SetActive(true);
                 reliableText.gameObject.SetActive(true);
+                
             }
             else if (journalistText.gameObject.activeSelf)
             {
@@ -147,7 +157,37 @@ public class PlayerController : MonoBehaviour
                 journalistYes.gameObject.SetActive(false);
                 reliableText.gameObject.SetActive(false);
             }
+            if (hit.collider != null && hit.collider.CompareTag("Stranger"))
+            {
+                // strangerText.text = "Got yah some goodies, bub.";
+                strangerText.gameObject.SetActive(true);
+                strangerNo.gameObject.SetActive(true);
+                strangerYes.gameObject.SetActive(true);
+                reliableText.gameObject.SetActive(true);
+                
+            }
+            else if (strangerText.gameObject.activeSelf)
+            {
+                strangerText.gameObject.SetActive(false);
+                strangerNo.gameObject.SetActive(false);
+                strangerYes.gameObject.SetActive(false);
+                reliableText.gameObject.SetActive(false);
+            }
+            if (yesCount == 1 && hit.collider.CompareTag("Last Door"))
+            {
+                SceneManager.LoadScene("End1");
+            }
+            if (yesCount == 2 && hit.collider.CompareTag("Last Door"))
+            {
+                SceneManager.LoadScene("End2");
+            }
+            if (yesCount == 3 && hit.collider.CompareTag("Last Door"))
+            {
+                SceneManager.LoadScene("End3");
+            }
         }
+
+            
     }
 
 
@@ -165,4 +205,9 @@ public class PlayerController : MonoBehaviour
             }
         }
     }
+
+    public void IncrementYesCount()
+{
+    yesCount++;
+}
 }
