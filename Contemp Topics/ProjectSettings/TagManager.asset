@@ -6,6 +6,16 @@ TagManager:
   tags:
   - Door
   - Computer
+  - Cop
+  - Protestor
+  - Employee A
+  - Lawyer
+  - Journalist
+  - Stranger
+  - Last Door
+  - copYes
+  - YesButton
+  - YikesButton
   layers:
   - Default
   - TransparentFX

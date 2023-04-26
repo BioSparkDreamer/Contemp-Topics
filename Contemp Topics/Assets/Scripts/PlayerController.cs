@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
+using TMPro;
 
 public class PlayerController : MonoBehaviour
 {
@@ -9,23 +11,69 @@ public class PlayerController : MonoBehaviour
     public float raycastDistance = 1f;
     public LayerMask interactableLayer;
     public KeyCode interactKey = KeyCode.E;
+    private TextMeshProUGUI copText;
+    private TextMeshProUGUI lawyerText;
+    private TextMeshProUGUI employeeaText;
+    private TextMeshProUGUI protestorText;
+    private TextMeshProUGUI journalistText;
+    private TextMeshProUGUI strangerText;
+    private TextMeshProUGUI reliableText;
+    public GameObject protestorYes, protestorNo;
+    public GameObject copYes, copNo;
+    public GameObject lawyerYes, lawyerNo;
+    public GameObject employeeAYes, employeeANo;
+    public GameObject journalistYes, journalistNo;
+    public GameObject strangerYes, strangerNo;
+    public GameObject cop;
+    public GameObject stranger;
+    public GameObject journalist;
+    public GameObject protestor;
+    public GameObject employee;
+    public GameObject lawyer;
+
+    public int yesCount = 0; // count of "yes" responses to prompts
+    
+    
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        copText = GameObject.Find("Cop Text").GetComponent<TextMeshProUGUI>();
+        copText.gameObject.SetActive(false);
+
+       yesCount = 0;
+       
+
+        lawyerText = GameObject.Find("Lawyer Text").GetComponent<TextMeshProUGUI>();
+        lawyerText.gameObject.SetActive(false);
+
+        employeeaText = GameObject.Find("Employee A Text").GetComponent<TextMeshProUGUI>();
+        employeeaText.gameObject.SetActive(false);
+
+        journalistText = GameObject.Find("Journalist Text").GetComponent<TextMeshProUGUI>();
+        journalistText.gameObject.SetActive(false);
+
+        protestorText = GameObject.Find("Protestor Text").GetComponent<TextMeshProUGUI>();
+        protestorText.gameObject.SetActive(false);
+
+        strangerText = GameObject.Find("Stranger Text").GetComponent<TextMeshProUGUI>();
+        strangerText.gameObject.SetActive(false);
+
+        reliableText = GameObject.Find("Reliable Text").GetComponent<TextMeshProUGUI>();
+        reliableText.gameObject.SetActive(false);
     }
 
     // Update is called once per frame
     void Update()
     {
-         if(Input.GetKey(KeyCode.A))
-            {
-                transform.Translate(-speed * Time.deltaTime, 0, 0);
-            }
-        if(Input.GetKey(KeyCode.D))
-            {
-                transform.Translate(speed * Time.deltaTime, 0, 0);
-            }
+        if (Input.GetKey(KeyCode.A))
+        {
+            transform.Translate(-speed * Time.deltaTime, 0, 0);
+        }
+        if (Input.GetKey(KeyCode.D))
+        {
+            transform.Translate(speed * Time.deltaTime, 0, 0);
+        }
         if (Input.GetKeyDown(interactKey))
         {
             RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.right, raycastDistance, interactableLayer);
@@ -41,22 +89,156 @@ public class PlayerController : MonoBehaviour
                 // Perform the action or scene change here
                 Debug.Log("Interacted with " + hit.collider.name);
             }
+            if (hit.collider != null && hit.collider.CompareTag("Protestor"))
+            {
+                // protestorText.text = "I'm Protesting";
+                protestorText.gameObject.SetActive(true);
+                protestorNo.gameObject.SetActive(true);
+                protestorYes.gameObject.SetActive(true);
+                reliableText.gameObject.SetActive(true);
+            }
+            else if (protestorText.gameObject.activeSelf)
+            {
+                protestorText.gameObject.SetActive(false);
+                protestorNo.gameObject.SetActive(false);
+                protestorYes.gameObject.SetActive(false);
+                reliableText.gameObject.SetActive(false);
+            }
+            if (hit.collider != null && hit.collider.CompareTag("Cop"))
+            {
+                // copText.text = "I'm a cop bro";
+                copText.gameObject.SetActive(true);
+                copNo.gameObject.SetActive(true);
+                copYes.gameObject.SetActive(true);
+                reliableText.gameObject.SetActive(true);
+                
+            }
+            else if (copText.gameObject.activeSelf)
+            {
+                copText.gameObject.SetActive(false);
+                copNo.gameObject.SetActive(false);
+                copYes.gameObject.SetActive(false);
+                reliableText.gameObject.SetActive(false);
+            }
+            if (hit.collider != null && hit.collider.CompareTag("Lawyer"))
+            {
+                // lawyerText.text = "Better call Paul!";
+                lawyerText.gameObject.SetActive(true);
+                lawyerNo.gameObject.SetActive(true);
+                lawyerYes.gameObject.SetActive(true);
+                reliableText.gameObject.SetActive(true);
+            }
+            else if (lawyerText.gameObject.activeSelf)
+            {
+                lawyerText.gameObject.SetActive(false);
+                lawyerNo.gameObject.SetActive(false);
+                lawyerYes.gameObject.SetActive(false);
+                reliableText.gameObject.SetActive(false);
+            }
+            if (hit.collider != null && hit.collider.CompareTag("Employee A"))
+            {
+                // employeeaText.text = "No I'm not a cupcake";
+                employeeaText.gameObject.SetActive(true);
+                employeeANo.gameObject.SetActive(true);
+                employeeAYes.gameObject.SetActive(true);
+                reliableText.gameObject.SetActive(true);
+            }
+            else if (employeeaText.gameObject.activeSelf)
+            {
+                employeeaText.gameObject.SetActive(false);
+                employeeANo.gameObject.SetActive(false);
+                employeeAYes.gameObject.SetActive(false);
+                reliableText.gameObject.SetActive(false);
+            }
+            if (hit.collider != null && hit.collider.CompareTag("Journalist"))
+            {
+                // journalistText.text = "I've got some damming news to tell yah...";
+                journalistText.gameObject.SetActive(true);
+                journalistNo.gameObject.SetActive(true);
+                journalistYes.gameObject.SetActive(true);
+                reliableText.gameObject.SetActive(true);
+                
+            }
+            else if (journalistText.gameObject.activeSelf)
+            {
+                journalistText.gameObject.SetActive(false);
+                journalistNo.gameObject.SetActive(false);
+                journalistYes.gameObject.SetActive(false);
+                reliableText.gameObject.SetActive(false);
+            }
+            if (hit.collider != null && hit.collider.CompareTag("Stranger"))
+            {
+                // strangerText.text = "Got yah some goodies, bub.";
+                strangerText.gameObject.SetActive(true);
+                strangerNo.gameObject.SetActive(true);
+                strangerYes.gameObject.SetActive(true);
+                reliableText.gameObject.SetActive(true);
+                
+            }
+            else if (strangerText.gameObject.activeSelf)
+            {
+                strangerText.gameObject.SetActive(false);
+                strangerNo.gameObject.SetActive(false);
+                strangerYes.gameObject.SetActive(false);
+                reliableText.gameObject.SetActive(false);
+            }
+            if (yesCount <= 1 && hit.collider.CompareTag("Last Door"))
+            {
+                SceneManager.LoadScene("End1");
+            }
+            if (yesCount == 2 && hit.collider.CompareTag("Last Door"))
+            {
+                SceneManager.LoadScene("End2");
+            }
+            if (yesCount == 3 && hit.collider.CompareTag("Last Door"))
+            {
+                SceneManager.LoadScene("End3");
+            }
         }
-    }  
+        
+        if (Input.GetMouseButtonDown(0))
+        {
+            RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.right, raycastDistance, interactableLayer);
+            if (hit.collider.CompareTag("YesButton"))
+                {
+                    yesCount++;
+                    Debug.Log("Yes count: " + yesCount);
+                    
+                }
+
+            if (hit.collider.CompareTag("YikesButton"))
+                {
+                    yesCount--;
+                    Debug.Log("Yes count: " + yesCount);
+                    
+                }
+        }
+            
+    }
 
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.tag == "Wall")
         {
-            if(Input.GetKey(KeyCode.A))
+            if (Input.GetKey(KeyCode.A))
             {
                 transform.Translate(speed * Time.deltaTime, 0, 0);
             }
-            if(Input.GetKey(KeyCode.D))
+            if (Input.GetKey(KeyCode.D))
             {
                 transform.Translate(-speed * Time.deltaTime, 0, 0);
             }
         }
-    }    
+    }
+   
+    public void AddCount()
+    {
+        yesCount++;
+        
+    }
+    public void SubtractCount()
+    {
+        yesCount--;
+    }
 }
