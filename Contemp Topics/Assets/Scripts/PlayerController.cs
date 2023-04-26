@@ -24,7 +24,15 @@ public class PlayerController : MonoBehaviour
     public GameObject employeeAYes, employeeANo;
     public GameObject journalistYes, journalistNo;
     public GameObject strangerYes, strangerNo;
+    public GameObject cop;
+    public GameObject stranger;
+    public GameObject journalist;
+    public GameObject protestor;
+    public GameObject employee;
+    public GameObject lawyer;
+
     public int yesCount = 0; // count of "yes" responses to prompts
+    
     
 
     // Start is called before the first frame update
@@ -33,6 +41,7 @@ public class PlayerController : MonoBehaviour
         copText = GameObject.Find("Cop Text").GetComponent<TextMeshProUGUI>();
         copText.gameObject.SetActive(false);
 
+       yesCount = 0;
        
 
         lawyerText = GameObject.Find("Lawyer Text").GetComponent<TextMeshProUGUI>();
@@ -173,7 +182,7 @@ public class PlayerController : MonoBehaviour
                 strangerYes.gameObject.SetActive(false);
                 reliableText.gameObject.SetActive(false);
             }
-            if (yesCount == 1 && hit.collider.CompareTag("Last Door"))
+            if (yesCount <= 1 && hit.collider.CompareTag("Last Door"))
             {
                 SceneManager.LoadScene("End1");
             }
@@ -186,7 +195,24 @@ public class PlayerController : MonoBehaviour
                 SceneManager.LoadScene("End3");
             }
         }
+        
+        if (Input.GetMouseButtonDown(0))
+        {
+            RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.right, raycastDistance, interactableLayer);
+            if (hit.collider.CompareTag("YesButton"))
+                {
+                    yesCount++;
+                    Debug.Log("Yes count: " + yesCount);
+                    
+                }
 
+            if (hit.collider.CompareTag("YikesButton"))
+                {
+                    yesCount--;
+                    Debug.Log("Yes count: " + yesCount);
+                    
+                }
+        }
             
     }
 
@@ -205,9 +231,14 @@ public class PlayerController : MonoBehaviour
             }
         }
     }
-
-    public void IncrementYesCount()
-{
-    yesCount++;
-}
+   
+    public void AddCount()
+    {
+        yesCount++;
+        
+    }
+    public void SubtractCount()
+    {
+        yesCount--;
+    }
 }
